@@ -1,8 +1,11 @@
-import SafeWithUsHeader from "../../components/SafeWithUsHeader";
+import SageHeader from "../../components/SageHeader";
+import LoginBox from "@/components/LoginBox";
+
 export default function Login() {
   return (
     <div>
-      <SafeWithUsHeader/>
+      <SageHeader />
+      <LoginBox />
     </div>
   );
 }
