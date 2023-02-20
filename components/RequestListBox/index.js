@@ -16,9 +16,11 @@ export default function RequestListBox(props) {
           </thead>
           <tbody>
             <tr className="h-20">
-              <td>2135622</td>
-              <td>1</td>
-              <td>0.5km</td>
+              <td>
+                <a href="/RequestDetails">2135622</a>
+              </td>
+              <td>10</td>
+              <td>20km</td>
               <td>
                 <button className="bg-btn-red rounded-2xl mr-3 px-2 py-1 text-white">
                   Decline
@@ -29,7 +31,9 @@ export default function RequestListBox(props) {
               </td>
             </tr>
             <tr className="h-20">
-              <td>2135622</td>
+              <td>
+                <a href="/RequestDetails">2135622</a>
+              </td>
               <td>1</td>
               <td>0.5km</td>
               <td>
@@ -42,7 +46,9 @@ export default function RequestListBox(props) {
               </td>
             </tr>
             <tr className="h-20">
-              <td>2135622</td>
+              <td>
+                <a href="/RequestDetails">2135622</a>
+              </td>
               <td>1</td>
               <td>0.5km</td>
               <td>
@@ -55,7 +61,9 @@ export default function RequestListBox(props) {
               </td>
             </tr>
             <tr className="h-20">
-              <td>2135622</td>
+              <td>
+                <a href="/RequestDetails">2135622</a>
+              </td>
               <td>1</td>
               <td>0.5km</td>
               <td>
@@ -68,7 +76,9 @@ export default function RequestListBox(props) {
               </td>
             </tr>
             <tr className="h-20">
-              <td>2135622</td>
+              <td>
+                <a href="/RequestDetails">2135622</a>
+              </td>
               <td>1</td>
               <td>0.5km</td>
               <td>
