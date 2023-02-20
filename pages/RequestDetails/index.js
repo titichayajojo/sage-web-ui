@@ -1,10 +1,11 @@
 import SageNavBar from "../../components/SageNavBar";
-import RequestListBox from "@/components/RequestListBox";
+import RequestDetailsBox from "@/components/RequestDetailsBox";
 
 export default function Login() {
   return (
     <div>
       <SageNavBar />
+      <RequestDetailsBox />
     </div>
   );
 }

@@ -9,9 +9,7 @@ export default function LoginBox(props) {
         <p className="mt-9 mb-16 text-3xl text-header-dark">Login</p>
 
         <div className="w-4/5">
-          <label className="text-header-dark text-xl" for="email">
-            Email
-          </label>
+          <label className="text-header-dark text-xl">Email</label>
           <br></br>
           <input
             className="mb-16 h-14 w-full rounded-2xl pl-3 mt-2"
@@ -23,9 +21,7 @@ export default function LoginBox(props) {
         </div>
 
         <div className="w-4/5">
-          <label className="text-header-dark mb-3 text-xl" for="last">
-            Password
-          </label>
+          <label className="text-header-dark mb-3 text-xl">Password</label>
           <br></br>
           <input
             className="mb-16 h-14 w-full rounded-2xl pl-3 mt-2"
@@ -36,7 +32,10 @@ export default function LoginBox(props) {
           <br></br>
         </div>
 
-        <button className="bg-header-light rounded-2xl py-3 px-20 text-3xl text-white mb-12" type="submit">
+        <button
+          className="bg-header-light rounded-2xl py-3 px-20 text-3xl text-white mb-12"
+          type="submit"
+        >
           Login
         </button>
       </form>
