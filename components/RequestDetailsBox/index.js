@@ -11,7 +11,7 @@ export default function RequestListBox(props) {
           <div className="mt-0.5 text-header-dark text-base">Back</div>
         </div>
 
-        <table className="table-auto ml-10">
+        <table className="table-auto ml-10 text-base text-grey">
           <thead>
             <tr className="h-20 ">
               <th className="text-header-light text-2xl text-left w-3/5">
@@ -28,7 +28,7 @@ export default function RequestListBox(props) {
             </tr>
           </thead>
           <tbody>
-            <tr className="align-top text-base text-grey">
+            <tr className="align-top">
               <td className="pr-10">
                 <div className="my-5">
                   Caller information: Pattarin urapevatcharewan (Patient)
@@ -48,9 +48,15 @@ export default function RequestListBox(props) {
                 <div className="my-5">More information: </div>
               </td>
               <td>
-                <div className="ml-auto flex justify-center mb-10">
-                  <Image src={map} alt="arrowImg" />
+                <div className="ml-auto flex justify-center">
+                  <Image src={map} alt="arrowImg"></Image>
                 </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td className="flex justify-center">
+                Location: 111 Sathorn Road Bangkok Thailand
               </td>
             </tr>
           </tbody>
