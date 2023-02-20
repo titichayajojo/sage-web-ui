@@ -18,6 +18,11 @@ module.exports = {
       white: "#ffffff",
       purple: "#3f3cbb",
       black: "#000000",
+      grey: "#9C9C9C",
+      btn: {
+        red: "#D34747",
+        green: "#7EC772",
+      },
       header: {
         dark: "#0190b0",
         light: "#00a5cb",
