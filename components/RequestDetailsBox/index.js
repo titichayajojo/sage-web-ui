@@ -33,7 +33,6 @@ export default function RequestListBox(props) {
                 <div className="my-5">
                   Caller information: Pattarin urapevatcharewan (Patient)
                 </div>
-                <div className="my-5">Number of Patient: 1</div>
                 <div className="my-5">Gender: Female</div>
                 <div className="my-5">
                   Symptoms: Road accident, severe bloodloss, head/spinal injury
