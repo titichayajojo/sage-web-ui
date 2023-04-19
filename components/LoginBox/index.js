@@ -1,3 +1,17 @@
+const handleSubmit = async (values) => {
+  try {
+    const res = await Auth.login(values.email, values.password);
+    navigation.navigate("HomePage");
+  } catch (err) {
+    if (err.code == "auth/user-not-found") {
+      createAlert("You don't have an account yet.");
+    } else if (err.code == "auth/wrong-password") {
+      createAlert("Wrong password.");
+    }
+    console.log(err.code);
+  }
+};
+
 export default function LoginBox(props) {
   return (
     <div className="flex justify-center">
