@@ -1,18 +1,34 @@
-const handleSubmit = async (values) => {
-  try {
-    const res = await Auth.login(values.email, values.password);
-    navigation.navigate("HomePage");
-  } catch (err) {
-    if (err.code == "auth/user-not-found") {
-      createAlert("You don't have an account yet.");
-    } else if (err.code == "auth/wrong-password") {
-      createAlert("Wrong password.");
-    }
-    console.log(err.code);
-  }
-};
+import Auth from "@/api/auth";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function LoginBox(props) {
+  const router = useRouter();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const handleSubmit = async () => {
+    try {
+    console.log("here")
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          router.push("/RequestList");
+        })
+        .catch((err) => {
+          if (err.code == "auth/user-not-found") {
+            alert("You don't have an account yet.");
+          } else if (err.code == "auth/wrong-password") {
+            alert("Wrong password.");
+          }
+        });
+      
+    } catch (err) {
+      console.log(err.code);
+    }
+  };
   return (
     <div className="flex justify-center">
       <form
@@ -30,6 +46,9 @@ export default function LoginBox(props) {
             type="text"
             id="first"
             name="first"
+            required={true}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <br></br>
         </div>
@@ -39,19 +58,24 @@ export default function LoginBox(props) {
           <br></br>
           <input
             className="mb-16 h-14 w-full rounded-2xl pl-3 mt-2"
-            type="text"
+            type="password"
             id="last"
             name="last"
+            required={true}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <br></br>
         </div>
+        
 
-        <button
+        <div
           className="bg-header-light rounded-2xl py-3 px-20 text-3xl text-white mb-12"
-          type="submit"
+          // type="submit"
+          onClick={handleSubmit}
         >
           Login
-        </button>
+        </div>
       </form>
     </div>
   );

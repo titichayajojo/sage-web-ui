@@ -1,7 +1,7 @@
 import SageHeader from "../../components/SageHeader";
 import LoginBox from "@/components/LoginBox";
 
-export default function Login() {
+function Login() {
   return (
     <div>
       <SageHeader />
@@ -9,3 +9,4 @@ export default function Login() {
     </div>
   );
 }
+export default Login;

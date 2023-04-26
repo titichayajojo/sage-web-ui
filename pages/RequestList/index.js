@@ -1,7 +1,7 @@
 import SageNavBar from "../../components/SageNavBar";
 import RequestListBox from "@/components/RequestListBox";
-
-export default function Login() {
+import withAuth from "@/lib/helpers";
+function RequestList() {
   return (
     <div>
       <SageNavBar />
@@ -9,3 +9,4 @@ export default function Login() {
     </div>
   );
 }
+export default withAuth(RequestList)

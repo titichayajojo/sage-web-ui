@@ -1,13 +1,14 @@
 import Image from "next/image";
 import backArrow from "../../images/BackArrow.png";
 import map from "../../images/Map.png";
-
+import { useRouter } from "next/router";
 export default function RequestListBox(props) {
+  const router = useRouter();
   return (
     <div className="flex justify-center item-center">
       <div className="bg-header-light/20 rounded-2xl mx-7 pr-10 w-screen">
         <div className="flex">
-          <Image src={backArrow} alt="arrowImg" className="inline-block ml-2" />
+          <Image src={backArrow} alt="arrowImg" className="inline-block ml-2"  onClick={() => router.back()} />
           <div className="mt-0.5 text-header-dark text-base">Back</div>
         </div>
 
