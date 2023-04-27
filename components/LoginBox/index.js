@@ -1,4 +1,4 @@
-import Auth from "@/api/auth";
+import Auth from "@/lib/api/auth";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useState } from "react";

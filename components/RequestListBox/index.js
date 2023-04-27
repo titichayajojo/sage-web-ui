@@ -1,7 +1,31 @@
 import Image from "next/image";
 import map from "../../images/Map.png";
-
+import { useEffect, useState } from "react";
+import { getCookie } from "@/lib/cookie";
+import Auth from "@/lib/api/auth";
 export default function RequestListBox(props) {
+  const [hospitalId, setHospitalId] = useState("");
+const [userData, setUserData] = useState("");
+  useEffect(() => {
+    try{
+     
+      // get role from user
+      const getUserRole = async () => {
+        const token = getCookie("token");
+        console.log(token)
+        const user = await Auth.getUserProfile({
+          token: token,
+        });
+        setHospitalId(user.data.data.user.hospitalId)
+        
+      };
+      getUserRole();
+      console.log("here ja")
+      // getHistory();
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
   return (
     <div className="bg-header-light/20 rounded-2xl flex justify-center mx-7">
       <div className="bg-white rounded-2xl w-3/5 my-5 ml-5 overflow-y-auto h-screen">
@@ -17,7 +41,7 @@ export default function RequestListBox(props) {
           <tbody>
             <tr className="h-20">
               <td>
-                <a href="/RequestDetails">2135622</a>
+                <a href="/RequestDetails">{hospitalId}</a>
               </td>
               <td>10</td>
               <td>20km</td>
