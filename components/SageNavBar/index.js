@@ -10,7 +10,7 @@ export default function  SageNavBar(props) {
     auth
       .signOut()
       .then(function () {
-        router.push("/");
+        router.push("/Login");
         alert("Logout successful");
       })
       .catch(function (error) {
