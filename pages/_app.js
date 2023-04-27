@@ -16,23 +16,23 @@ export default function App({ Component, pageProps }) {
   };
 
 
-  const fetchUserInfomation = async () => {
-    try {
-      if (auth) {
-        // const token = await auth.currentUser.getIdToken();
-        // const res = await User.get({
-        //   type: User.USER_GET_USER_DETAIL,
-        //   token,
-        // });
+  // const fetchUserInfomation = async () => {
+  //   try {
+  //     if (auth) {
+  //       // const token = await auth.currentUser.getIdToken();
+  //       // const res = await User.get({
+  //       //   type: User.USER_GET_USER_DETAIL,
+  //       //   token,
+  //       // });
 
-        if (res.ok) {
-          // store.dispatch(AuthActions.setUser(res.user));
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  //       if (res.ok) {
+  //         // store.dispatch(AuthActions.setUser(res.user));
+  //       }
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
 
   const setNewToken = async (authUser) => {
     await setCookie("token", await authUser.getIdToken());
@@ -42,11 +42,11 @@ export default function App({ Component, pageProps }) {
     const unlisten = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         await setNewToken(authUser);
-        await fetchUserInfomation();
+        // await fetchUserInfomation();
 
         setTokenInterval.current = setInterval(() => {
           setNewToken(authUser);
-          fetchUserInfomation();
+          // fetchUserInfomation();
         }, 1000 * 60 * 15);
 
         setCookie("token", authUser.accessToken);
