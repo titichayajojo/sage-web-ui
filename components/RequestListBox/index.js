@@ -5,16 +5,21 @@ import { getCookie } from "@/lib/cookie";
 import Auth from "@/lib/api/auth";
 import map from "../../images/Map.png";
 import Select from "react-select";
+import { useRouter } from "next/router";
+import RequestDetails from "@/pages/RequestDetails";
 export default function RequestListBox(props) {
+  const router = useRouter();
   const [userData, setUserData] = useState("");
   const [allCases, setAllCases] = useState([]);
   const [selectedStaff, setSelectedStaff] = useState("");
   const { jobIdList, hospitalId } = props;
 
-  let staffs = [{
-    value:null,
-    label: "unassigned",
-  }];
+  let staffs = [
+    {
+      value: null,
+      label: "unassigned",
+    },
+  ];
 
   const getData = async () => {
     console.log("job id: ", jobIdList);
@@ -47,18 +52,22 @@ export default function RequestListBox(props) {
       setStaffOption(staffs);
     }
   };
-  const acceptCase = async (id, receiver) =>{
+  const acceptCase = async (id, receiver) => {
     const token = getCookie("token");
-    console.log(id,receiver.value)
-    const res = await Auth.acceptCase({
-      body:{
-        jobId:id,
-        receiverUid:receiver,
-        round:"1",
-      },
-      token: token,
-    })
-  }
+    console.log(id, receiver.value);
+    if (receiver.value) {
+      const res = await Auth.acceptCase({
+        body: {
+          jobId: id,
+          receiverUid: receiver,
+          round: "1",
+        },
+        token: token,
+      });
+    }else{
+      alert("You forgot to assign a paramedic");
+    }
+  };
 
   useEffect(() => {
     getData();
@@ -72,6 +81,7 @@ export default function RequestListBox(props) {
     });
     return res.data;
   };
+  console.log("all cases: ", allCases);
   const [staffOption, setStaffOption] = useState(staffs);
   return (
     <div>
@@ -90,7 +100,16 @@ export default function RequestListBox(props) {
             <tbody>
               {allCases.map((i, index) => (
                 <tr key={index} className="h-20">
-                  <td className="border px-4 py-2">{i.data.name}</td>
+                  <td
+                    onClick={() =>
+                      router.push(
+                        `/RequestDetails?id=${i.data.emergencyCaseId}&jobId=${jobIdList[index]}`
+                      )
+                    }
+                    className="border px-4 py-2"
+                  >
+                    {i.data.name}
+                  </td>
                   <td className="border px-4 py-2">
                     {i.data.symptoms.map((s) => (
                       <div>{s}</div>
@@ -115,7 +134,9 @@ export default function RequestListBox(props) {
                       <button
                         className="bg-btn-green rounded-2xl px-2 py-1  text-white"
                         style={{ backgroundColor: "green !important" }}
-                        onClick={()=>acceptCase(jobIdList[index],allCases[index].assignee)}
+                        onClick={() =>
+                          acceptCase(jobIdList[index], allCases[index].assignee)
+                        }
                       >
                         Accept
                       </button>
