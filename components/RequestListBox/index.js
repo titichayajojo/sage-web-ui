@@ -108,7 +108,7 @@ export default function RequestListBox(props) {
                     }
                     className="border px-4 py-2"
                   >
-                    {i.data.name}
+                    <p className=" hover:underline">{i.data.name}</p>
                   </td>
                   <td className="border px-4 py-2">
                     {i.data.symptoms.map((s) => (

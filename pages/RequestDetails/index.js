@@ -11,6 +11,7 @@ const jobId = router.query.jobId;
 const [caseInfo, setCaseInfo] = useState(null);
 const [medInfo, setMedInfo] = useState(null)
 const [hospitalId, setHospitalId] = useState(null)
+const [location, setLocation] = useState(null)
 useEffect(() => {
     try {
         const getUserRole = async () => {
@@ -27,9 +28,10 @@ useEffect(() => {
           token: token,
           params: { id: emergencyId },
         });
-        console.log("data: ", res.data.data.userProfile)
+        console.log("data: ", res.data.data)
         setCaseInfo(res.data.data.emergencyCase)
         setMedInfo(res.data.data.userProfile)
+        setLocation(res.data.data.formattedEmergencyCase)
         
       };
       getUserRole();
@@ -40,6 +42,6 @@ useEffect(() => {
   }, []);
 console.log("emergency Id" ,emergencyId)
 
-  return caseInfo&&medInfo&&hospitalId?<RequestDetailsBox caseInfo = {caseInfo} medInfo={medInfo} hospitalId={hospitalId} jobId={jobId}/>:<div></div>
+  return caseInfo&&medInfo&&hospitalId&&location?<RequestDetailsBox caseInfo = {caseInfo} medInfo={medInfo} hospitalId={hospitalId} jobId={jobId} location={location}/>:<div></div>
 }
 export default withAuth(RequestDetails);
