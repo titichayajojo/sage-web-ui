@@ -54,7 +54,7 @@ export default function RequestListBox(props) {
       body:{
         jobId:id,
         receiverUid:receiver,
-        round:"3",
+        round:"1",
       },
       token: token,
     })
@@ -73,7 +73,6 @@ export default function RequestListBox(props) {
     return res.data;
   };
   const [staffOption, setStaffOption] = useState(staffs);
-  console.log("opyion: ", staffOption);
   return (
     <div>
       <div className="bg-header-light/20 rounded-2xl flex justify-center mx-7">
