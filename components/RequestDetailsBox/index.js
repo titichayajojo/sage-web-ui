@@ -10,7 +10,7 @@ import Select from "react-select";
 import { getCookie } from "@/lib/cookie";
 export default function RequestListBox(props) {
   const router = useRouter();
-  const { caseInfo, medInfo, hospitalId, jobId } = props;
+  const { caseInfo, medInfo, hospitalId, jobId, location } = props;
   console.log("job id: ", jobId);
   console.log("caseInfo: ", caseInfo);
   console.log("medInfo: ", medInfo);
@@ -51,14 +51,11 @@ export default function RequestListBox(props) {
         },
         token: token,
       });
-      router.push("/RequestList")
-      
-    }
-    else{
+      router.push("/RequestList");
+    } else {
       alert("You forgot to assign a paramedic");
     }
     console.log("selected staff: ", id, receiver);
-    
   };
   useEffect(() => {
     getStaff();
@@ -174,9 +171,20 @@ export default function RequestListBox(props) {
                 <div>
                   <Image src={map} alt="arrowImg"></Image>
                 </div>
-                <div className="ml-auto mt-1 flex justify-center">
-                  {" "}
-                  Location: 111 Sathorn Road Bangkok Thailand
+                <div
+                  className="ml-auto mt-1 flex justify-center hover:underline"
+                  onClick={() =>
+                    window.open(
+                      `https://www.google.com/maps/dir/${parseFloat(
+                        location.hospitalLatitude
+                      )},${parseFloat(location.hospitalLoingitude)}/${
+                        location.emergencyCaseLatitude
+                      },${location.emergencyCaseLongitude}`
+                    )
+                  }
+                >
+                  Location: {location.emergencyCaseLatitude},{" "}
+                  {location.emergencyCaseLongitude}
                 </div>
               </td>
             </tr>
