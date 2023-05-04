@@ -20,6 +20,7 @@ module.exports = {
       black: "#000000",
       grey: "#9C9C9C",
       btn: {
+        yellow:"#FFCD01",
         red: "#D34747",
         green: "#7EC772",
       },
