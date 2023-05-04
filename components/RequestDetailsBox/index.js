@@ -96,7 +96,7 @@ export default function RequestListBox(props) {
                 <div className="flex-none">
                   <button
                     className="rounded-xl bg-btn-green px-12 py-1 text-white ml-5"
-                    onClick={() => acceptCase(jobId, selectedStaff.value)}
+                    onClick={() => acceptCase(jobId, selectedStaff)}
                   >
                     Accept
                   </button>
