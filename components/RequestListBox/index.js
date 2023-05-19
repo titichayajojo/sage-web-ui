@@ -11,7 +11,6 @@ export default function RequestListBox(props) {
   const router = useRouter();
   const [userData, setUserData] = useState("");
   const [allCases, setAllCases] = useState([]);
-  const [selectedStaff, setSelectedStaff] = useState("");
   const { jobIdList, hospitalId } = props;
 
   let staffs = [
@@ -39,22 +38,23 @@ export default function RequestListBox(props) {
       params: { id: hospitalId },
     });
     if (staffs.length == 1 && res.data) {
-      console.log("here");
+      console.log("here:",res.data);
 
       for (let i = 0; i < res.data.data.length; i++) {
         const staff = {
           value: res.data.data[i].uid,
           label: res.data.data[i].name,
         };
+        console.log("staff here")
         staffs.push(staff);
       }
-      console.log("staff: ", staffs);
+      
       setStaffOption(staffs);
     }
   };
   const acceptCase = async (id, receiver) => {
     const token = getCookie("token");
-    console.log(id, receiver.value);
+
     if (receiver.value) {
       const res = await Auth.acceptCase({
         body: {
@@ -68,6 +68,7 @@ export default function RequestListBox(props) {
       alert("You forgot to assign a paramedic");
     }
   };
+  console.log("staff: ", staffs)
 
   useEffect(() => {
     getData();
@@ -85,14 +86,14 @@ export default function RequestListBox(props) {
   const [staffOption, setStaffOption] = useState(staffs);
   return (
     <div>
-      <div className="bg-header-light/20 rounded-2xl flex justify-center mx-7">
-        <div className="bg-white rounded-2xl w-3/5 my-5 ml-5 overflow-y-auto h-screen">
-          <table className="table-fixed w-11/12 h-fit m-5 text-left text-grey">
+      <div className="bg-header-light/20 rounded-2xl flex justify-center mx-7 mb-10">
+        <div className="bg-white rounded-2xl w-3/5 m-10  h-screen">
+          <table className="table-fixed  h-fit m-5 text-left text-grey text-lg">
             <thead>
               <tr>
                 <th className="px-4 py-2">Requester</th>
                 <th className="px-4 py-2">Symptoms</th>
-                <th className="px-2 py-2 w-20">Distance</th>
+                <th className="px-2 py-2 w-25">Distance</th>
                 <th className="px-4 py-2">Assignee</th>
                 <th className="px-3 py-2 w-1/12">Actions</th>
               </tr>
@@ -132,7 +133,7 @@ export default function RequestListBox(props) {
                   <td className="border px-4 py-2">
                     <div className="flex justify-center">
                       <button
-                        className="bg-btn-green rounded-2xl px-2 py-1  text-white"
+                        className="bg-btn-green rounded-2xl px-3 py-1  text-white"
                         style={{ backgroundColor: "green !important" }}
                         onClick={() =>
                           acceptCase(jobIdList[index], allCases[index].assignee)
@@ -147,8 +148,8 @@ export default function RequestListBox(props) {
             </tbody>
           </table>
         </div>
-        <div className="w-2/5 m-5 min-h-screen flex justify-center item-center">
-          <Image src={map} alt="mapImg" height="100%"></Image>
+        <div className="w-2/5 mt-10  min-h-screen flex justify-center item-center">
+          <Image src={map} alt="mapImg" height="100%" className="mb-10"></Image>
         </div>
       </div>
     </div>
