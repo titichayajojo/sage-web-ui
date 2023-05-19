@@ -93,7 +93,7 @@ export default function RequestListBox(props) {
               <tr>
                 <th className="px-4 py-2">Requester</th>
                 <th className="px-4 py-2">Symptoms</th>
-                <th className="px-2 py-2 w-20">Distance</th>
+                <th className="px-2 py-2 w-25">Distance</th>
                 <th className="px-4 py-2">Assignee</th>
                 <th className="px-3 py-2 w-1/12">Actions</th>
               </tr>
