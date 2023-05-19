@@ -62,48 +62,25 @@ export default function RequestListBox(props) {
   }, []);
   const [staffOption, setStaffOption] = useState(staffs);
   return (
-    <div className="flex flex-1 justify-center items-center items-center">
-      <div className="bg-header-light/20 rounded-2xl mx-7 mt-7 pr-10 w-screen">
-        <div className="flex mt-2">
+    <div className="flex flex-1 justify-center">
+      <div className="bg-header-light/20 rounded-2xl mx-10 mt-10 pr-10 pb-10 mb-10 w-screen">
+        <div className="flex mt-5">
           <Image
             src={backArrow}
             alt="arrowImg"
             className="inline-block ml-2"
             onClick={() => router.back()}
           />
-          <div className="mt-0.5 text-header-dark text-base">Back</div>
+          <div className="text-header-dark text-2xl">Back</div>
         </div>
 
-        <table className="table-auto ml-10 text-base text-grey">
-          <thead>
-            <tr className="h-20">
-              <th className="text-header-light text-2xl text-left w-3/5">
-                Requester Name: {medInfo.medicalInformation.name}
-              </th>
-              <th className="flex flex-row justify-between justify-self-center">
-                <div className="grow">
-                  <Select
-                    options={staffOption}
-                    placeholder="Select assignee"
-                    value={selectedStaff}
-                    onChange={setSelectedStaff}
-                    isSearchable={true}
-                  />
-                </div>
-                <div className="flex-none">
-                  <button
-                    className="rounded-xl bg-btn-green px-12 py-1 text-white ml-5"
-                    onClick={() => acceptCase(jobId, selectedStaff)}
-                  >
-                    Accept
-                  </button>
-                </div>
-              </th>
-            </tr>
-          </thead>
+        <table className="table-auto ml-10 mt-5 text-xl text-grey">
           <tbody>
             <tr className="align-top">
-              <td className="pr-10">
+              <td className="pl-7 w-3/5">
+                <th className="text-header-light text-3xl text-left">
+                  Requester Name: {medInfo.medicalInformation.name}
+                </th>
                 <div className="mt-5 underline">Contact Number:</div>{" "}
                 {caseInfo.contactNumber}
                 <div className="mt-5 underline">Emergency contact:</div>
@@ -168,7 +145,26 @@ export default function RequestListBox(props) {
                 </ImageList>
               </td>
               <td>
-                <div>
+                <div className="flex flex-row place-content-between">
+                  <div className="grow">
+                    <Select
+                      options={staffOption}
+                      placeholder="Select assignee"
+                      value={selectedStaff}
+                      onChange={setSelectedStaff}
+                      isSearchable={true}
+                    />
+                  </div>
+                  <div className="flex-none">
+                    <button
+                      className="rounded-xl bg-btn-green px-12 py-1 text-white ml-5"
+                      onClick={() => acceptCase(jobId, selectedStaff)}
+                    >
+                      Accept
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-7 flex justify-center">
                   <Image src={map} alt="arrowImg"></Image>
                 </div>
                 <div

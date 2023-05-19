@@ -11,6 +11,7 @@ import map from "../../images/Map.png";
 function RequestList() {
   const [allJobs, setAllJobs] = useState([]);
   const [hospitalId, setHospitalId] = useState(null);
+  const [hospitalName, setHospitalName] = useState(null);
   const [cases, setCases] = useState([]);
   //  let casesTemp = []
   //   const getOrderData = async (jobId) => {
@@ -30,6 +31,7 @@ function RequestList() {
           token: token,
         });
         setHospitalId(user.data.data.user.hospitalId);
+        setHospitalName(user.data.data.hospital.name);
       };
       getUserRole();
 
@@ -56,9 +58,9 @@ function RequestList() {
   }, [hospitalId]);
   return (
     <div>
-      <SageNavBar />
+      {hospitalName&&<SageNavBar name={hospitalName}/>}
 
-      <RequestListBox jobIdList={allJobs} hospitalId={hospitalId}/>
+      {hospitalId&&<RequestListBox jobIdList={allJobs} hospitalId={hospitalId}/>}
 
       {/* <div className="bg-header-light/20 rounded-2xl flex justify-center mx-7">
         <div className="bg-white rounded-2xl w-3/5 my-5 ml-5 overflow-y-auto h-screen">

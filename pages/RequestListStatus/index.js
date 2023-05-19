@@ -11,6 +11,7 @@ import map from "../../images/Map.png";
 function RequestListStatus() {
   const [allJobs, setAllJobs] = useState([]);
   const [hospitalId, setHospitalId] = useState(null);
+  const [hospitalName, setHospitalName] = useState(null);
   useEffect(() => {
     try {
       const getUserRole = async () => {
@@ -21,6 +22,8 @@ function RequestListStatus() {
         });
 
         setHospitalId(user.data.data.user.hospitalId);
+        setHospitalName(user.data.data.hospital.name)
+
         console.log("hospitalId: ",hospitalId)
       };
       getUserRole();
@@ -51,7 +54,7 @@ function RequestListStatus() {
   }, [hospitalId]);
   return (
     <div>
-      <SageNavBar />
+      {hospitalName&&<SageNavBar name={hospitalName}/>}
       {hospitalId&&allJobs&&<RequestListStatusBox jobIdList={allJobs} hospitalId={hospitalId}/>}
     </div>
   );

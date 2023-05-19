@@ -22,30 +22,28 @@ export default function RequestStatusDetailBox(props) {
     } else if (status === "done") {
       setButtonClass("rounded-xl  px-12 py-1 text-white bg-btn-green");
     }
-  }, []);
-
-  // Set the button color based on the status
+  }, [status]);
 
   return (
-    <div className="flex flex-1 justify-center items-center items-center">
-      <div className="bg-header-light/20 rounded-2xl mx-7 mt-7 pr-10 w-screen">
-        <div className="flex mt-2">
+    <div className="flex flex-1 justify-center">
+      <div className="bg-header-light/20 rounded-2xl mx-7 mt-7 pr-10 pb-10 mb-7 w-screen">
+        <div className="flex mt-5">
           <Image
             src={backArrow}
             alt="arrowImg"
             className="inline-block ml-2"
             onClick={() => router.back()}
           />
-          <div className="mt-0.5 text-header-dark text-base">Back</div>
+          <div className="text-header-dark text-2xl">Back</div>
         </div>
 
-        <table className="table-auto ml-10 text-base text-grey">
+        <table className="table-auto ml-10 mt-5 text-xl text-grey">
           <tbody>
             <tr className="align-top">
-              <td className="w-2/3">
-              <th className="text-header-light text-2xl text-left w-3/5">
-                Requester Name: {medInfo.medicalInformation.name}
-              </th>
+              <td className="w-3/5">
+                <th className="text-header-light text-3xl font-medium text-left w-3/5">
+                  Requester Name: {medInfo.medicalInformation.name}
+                </th>
                 <div className="mt-5 underline">Contact Number:</div>{" "}
                 {caseInfo.contactNumber}
                 <div className="mt-5 underline">Emergency contact:</div>
@@ -109,22 +107,21 @@ export default function RequestStatusDetailBox(props) {
                   ))}
                 </ImageList>
               </td>
-              <td>
-                <div className="flex flex-row justify-between justify-self-center">
-                  {" "}
-                  <div className="text-header-light text-2xl">
+              <td className="w-2/5">
+                <div className="flex flex-row place-content-between pl-11 pr-11">
+                  <div className="text-header-light text-3xl">
                     Assigned to {paraName}
                   </div>
-                  <div className="ml-auto">
+                  <div className="self-center">
                     <button className={`${buttonClass}`}>{status}</button>
                   </div>
                 </div>
 
-                <div className="mt-5">
-                  <Image src={map} alt="arrowImg"></Image>
+                <div className="mt-7 flex justify-center">
+                  <Image src={map} alt="arrowImg" />
                 </div>
                 <div
-                  className="ml-auto mt-1 flex justify-center hover:underline"
+                  className="ml-auto mt-4 flex justify-center hover:underline"
                   onClick={() =>
                     window.open(
                       `https://www.google.com/maps/dir/${parseFloat(
