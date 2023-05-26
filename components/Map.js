@@ -13,7 +13,7 @@ const center = {
 
 const Map = ({ locations }) => {
   return (
-    <LoadScript googleMapsApiKey="AIzaSyB1OZN6aK-ey5ZPoeezFvZ5yhtYyS-CRDs">
+    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
         {locations.map((location, index) => (
           <Marker
