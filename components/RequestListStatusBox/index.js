@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { getCookie } from "@/lib/cookie";
 import Auth from "@/lib/api/auth";
 import { useRouter } from "next/router";
+import { SpinnerDotted } from "spinners-react";
 export default function RequestListStatusBox(props) {
   const [allCases, setAllCases] = useState([]);
   const { jobIdList, hospitalId } = props;
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
   const getData = async () => {
     console.log("job id: ", jobIdList);
     let cases = [];
@@ -26,15 +28,27 @@ export default function RequestListStatusBox(props) {
       console.log("Status: ", cases);
       setAllCases(cases);
     }
+    setIsLoading(false);
   };
   useEffect(() => {
+    setIsLoading(true);
     getData();
   }, [jobIdList]);
-
+  if (isLoading) {
+    return (<div className="bg-header-light/20 rounded-2xl flex justify-center items-center mx-7 mb-10">
+    <div className="bg-white rounded-2xl m-10 overflow-y-auto flex flex-col justify-center items-center h-screen w-screen">
+      <SpinnerDotted color="#00a5cb" size={100}/>
+      <div className="mt-5 text-grey">loading</div>
+    </div>
+  </div>
+  
+      
+    );
+  }
   return (
     <div>
       <div className="bg-header-light/20 rounded-2xl flex justify-center mx-7 mb-10 items-center">
-        <div className="bg-white rounded-2xl  m-10 overflow-y-auto h-screen">
+        <div className="bg-white rounded-2xl  m-10 overflow-y-auto h-screen overflow-y-auto">
           <table className="table-fixed w-11/12 h-fit m-5 text-left text-grey text-lg">
             <thead>
               <tr>

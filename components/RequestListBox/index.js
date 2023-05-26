@@ -87,7 +87,7 @@ export default function RequestListBox(props) {
   return (
     <div>
       <div className="bg-header-light/20 rounded-2xl flex justify-center mx-7 mb-10">
-        <div className="bg-white rounded-2xl w-3/5 m-10  h-screen">
+        <div className="bg-white rounded-2xl w-3/5 m-10  h-screen overflow-y-auto">
           <table className="table-fixed  h-fit m-5 text-left text-grey text-lg">
             <thead>
               <tr>
