@@ -7,13 +7,14 @@ import { getCookie } from "@/lib/cookie";
 import Auth from "@/lib/api/auth";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-
+import { useRouter } from "next/router";
 function RequestList() {
   const [allJobs, setAllJobs] = useState([]);
   const [hospitalId, setHospitalId] = useState(null);
   const [hospitalName, setHospitalName] = useState(null);
   const [allCases, setAllCases] = useState([]);
   const [caseStatus, setCaseStatus] = useState([]);
+  const router= useRouter();
 
   const getData = async () => {
     console.log("job id: ", allJobs);
@@ -148,7 +149,7 @@ function RequestList() {
                       <td
                         onClick={() =>
                           router.push(
-                            `/RequestDetails?id=${i.data.emergencyCaseId}&jobId=${jobIdList[index]}`
+                            `/RequestDetails?id=${i.data.emergencyCaseId}&jobId=${allJobs[index]}`
                           )
                         }
                         className="border px-4 py-2"
