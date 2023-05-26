@@ -7,14 +7,22 @@ import { getCookie } from "@/lib/cookie";
 import Auth from "@/lib/api/auth";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import Map from "../../components/Map";
+import { SpinnerDotted } from "spinners-react";
+
 import { useRouter } from "next/router";
+
 function RequestList() {
   const [allJobs, setAllJobs] = useState([]);
   const [hospitalId, setHospitalId] = useState(null);
   const [hospitalName, setHospitalName] = useState(null);
   const [allCases, setAllCases] = useState([]);
   const [caseStatus, setCaseStatus] = useState([]);
+  const [hospitalLocation, setHospitalLocation] = useState(null);
+  const [locations, setLocations] = useState([]);
+
   const router= useRouter();
+
 
   const getData = async () => {
     console.log("job id: ", allJobs);
@@ -45,25 +53,27 @@ function RequestList() {
         const user = await Auth.getUserProfile({
           token: token,
         });
+        
         const hospitalId = user.data.data.user.hospitalId;
         setHospitalId(hospitalId);
         setHospitalName(user.data.data.hospital.name);
+        setHospitalLocation({lat: parseFloat(user.data.data.address.latitude), lng: parseFloat(user.data.data.address.longitude)});
 
         const res = await Auth.getMedicalStaff({
           params: { id: hospitalId },
         });
         if (staffs.length == 1 && res.data) {
-          console.log("here:",res.data);
-    
+          console.log("here:", res.data);
+
           for (let i = 0; i < res.data.data.length; i++) {
             const staff = {
               value: res.data.data[i].uid,
               label: res.data.data[i].name,
             };
-            console.log("staff here:",staff)
+            console.log("staff here:", staff);
             staffs.push(staff);
           }
-          
+
           setStaffOption(staffs);
         }
 
@@ -81,10 +91,10 @@ function RequestList() {
             const jobId = jobData.jobId;
             const jobStatus = jobData.status;
             jobs.push(jobId);
-            statuses.push(jobStatus)
+            statuses.push(jobStatus);
           });
           setAllJobs(jobs);
-          setCaseStatus(statuses)
+          setCaseStatus(statuses);
         });
       } catch (error) {
         console.error(error);
@@ -92,6 +102,7 @@ function RequestList() {
     };
 
     fetchData();
+
   }, []);
 
   useEffect(() => {
@@ -103,14 +114,22 @@ function RequestList() {
   useEffect(() => {
     if (allCases.length > 0) {
       console.log("allCases:", allCases);
-      console.log("cases status:", caseStatus)
+      console.log("cases status:", caseStatus);
     }
+    setLocations(allCases.map((caseItem) => ({
+      latitude: caseItem.data.emergencyCaseLatitude,
+      longitude: caseItem.data.emergencyCaseLongitude,
+    })));
   }, [allCases]);
+
+  useEffect(() => {
+      console.log("Location");
+  }, [ locations]);
 
   console.log("allJobs:", allJobs);
   const acceptCase = async (id, receiver) => {
     const token = getCookie("token");
-    console.log("receiver: ",receiver.value)
+    console.log("receiver: ", receiver.value);
     if (receiver.value) {
       const res = await Auth.acceptCase({
         body: {
@@ -120,10 +139,12 @@ function RequestList() {
         },
         token: token,
       });
-    }else{
+    } else {
       alert("You forgot to assign a paramedic");
     }
   };
+
+
 
   return (
     <div>
@@ -201,7 +222,11 @@ function RequestList() {
           </table>
         </div>
         <div className="w-2/5 mt-10  min-h-screen flex justify-center item-center">
+        
+          <Map locations={locations} hospitalLocation={hospitalLocation}/>
+
           {/* <Image src={map} alt="mapImg" height="100%" className="mb-10"></Image> */}
+          
         </div>
       </div>
     </div>
