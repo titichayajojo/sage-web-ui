@@ -8,6 +8,7 @@ import Auth from "@/lib/api/auth";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Map from "../../components/Map";
+import { SpinnerDotted } from "spinners-react";
 
 function RequestList() {
   const [allJobs, setAllJobs] = useState([]);
@@ -15,6 +16,9 @@ function RequestList() {
   const [hospitalName, setHospitalName] = useState(null);
   const [allCases, setAllCases] = useState([]);
   const [caseStatus, setCaseStatus] = useState([]);
+  const [hospitalLocation, setHospitalLocation] = useState(null);
+  const [locations, setLocations] = useState([]);
+  
 
   const getData = async () => {
     console.log("job id: ", allJobs);
@@ -45,9 +49,11 @@ function RequestList() {
         const user = await Auth.getUserProfile({
           token: token,
         });
+        
         const hospitalId = user.data.data.user.hospitalId;
         setHospitalId(hospitalId);
         setHospitalName(user.data.data.hospital.name);
+        setHospitalLocation({lat: parseFloat(user.data.data.address.latitude), lng: parseFloat(user.data.data.address.longitude)});
 
         const res = await Auth.getMedicalStaff({
           params: { id: hospitalId },
@@ -92,6 +98,7 @@ function RequestList() {
     };
 
     fetchData();
+
   }, []);
 
   useEffect(() => {
@@ -105,7 +112,15 @@ function RequestList() {
       console.log("allCases:", allCases);
       console.log("cases status:", caseStatus);
     }
+    setLocations(allCases.map((caseItem) => ({
+      latitude: caseItem.data.emergencyCaseLatitude,
+      longitude: caseItem.data.emergencyCaseLongitude,
+    })));
   }, [allCases]);
+
+  useEffect(() => {
+      console.log("Location");
+  }, [ locations]);
 
   console.log("allJobs:", allJobs);
   const acceptCase = async (id, receiver) => {
@@ -125,10 +140,7 @@ function RequestList() {
     }
   };
 
-  const locations = allCases.map((caseItem) => ({
-    latitude: caseItem.data.emergencyCaseLatitude,
-    longitude: caseItem.data.emergencyCaseLongitude,
-  }));
+
 
   return (
     <div>
@@ -206,8 +218,11 @@ function RequestList() {
           </table>
         </div>
         <div className="w-2/5 mt-10  min-h-screen flex justify-center item-center">
+        
+          <Map locations={locations} hospitalLocation={hospitalLocation}/>
+
           {/* <Image src={map} alt="mapImg" height="100%" className="mb-10"></Image> */}
-          <Map locations={locations} />
+          
         </div>
       </div>
     </div>
