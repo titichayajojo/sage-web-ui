@@ -10,6 +10,8 @@ import { db } from "@/lib/firebase";
 import Map from "../../components/Map";
 import { SpinnerDotted } from "spinners-react";
 
+import { useRouter } from "next/router";
+
 function RequestList() {
   const [allJobs, setAllJobs] = useState([]);
   const [hospitalId, setHospitalId] = useState(null);
@@ -18,7 +20,9 @@ function RequestList() {
   const [caseStatus, setCaseStatus] = useState([]);
   const [hospitalLocation, setHospitalLocation] = useState(null);
   const [locations, setLocations] = useState([]);
-  
+
+  const router= useRouter();
+
 
   const getData = async () => {
     console.log("job id: ", allJobs);
@@ -166,7 +170,7 @@ function RequestList() {
                       <td
                         onClick={() =>
                           router.push(
-                            `/RequestDetails?id=${i.data.emergencyCaseId}&jobId=${jobIdList[index]}`
+                            `/RequestDetails?id=${i.data.emergencyCaseId}&jobId=${allJobs[index]}`
                           )
                         }
                         className="border px-4 py-2"
