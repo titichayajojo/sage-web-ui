@@ -8,6 +8,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import Auth from "@/lib/api/auth";
 import Select from "react-select";
 import { getCookie } from "@/lib/cookie";
+import Map from "../../components/Map";
 export default function RequestListBox(props) {
   const router = useRouter();
   const { caseInfo, medInfo, hospitalId, jobId, location } = props;
@@ -125,24 +126,7 @@ export default function RequestListBox(props) {
                 <div className="mt-5 underline">Other information: </div>
                 <div>{caseInfo.otherInformation}</div>
                 <div className="mt-5 my-2 underline">Attached image(s): </div>
-                <ImageList
-                  // sx={{ width: 800, height: 250 }}
-                  cols={3}
-                  gap={10}
-                >
-                  {caseInfo.attachedImages.map((item) => (
-                    <ImageListItem key={item}>
-                      {item && (
-                        <img
-                          src={`https://healthcare-finalproject.s3.ap-southeast-1.amazonaws.com/${item}`}
-                          // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                          // alt={item.title}
-                          loading="lazy"
-                        />
-                      )}
-                    </ImageListItem>
-                  ))}
-                </ImageList>
+                
               </td>
               <td>
                 <div className="flex flex-row place-content-between">
@@ -158,14 +142,30 @@ export default function RequestListBox(props) {
                   <div className="flex-none">
                     <button
                       className="rounded-xl bg-btn-green px-12 py-1 text-white ml-5"
-                      onClick={() => acceptCase(jobId, selectedStaff)}
-                    >
+                      onClick={() => acceptCase(jobId, selectedStaff)}>
                       Accept
                     </button>
                   </div>
                 </div>
-                <div className="mt-7 flex justify-center">
-                  <Image src={map} alt="arrowImg"></Image>
+                <div className="mt-10 flex justify-center item-center">
+                <ImageList
+                  // sx={{ width: 800, height: 250 }}
+
+                >
+                  {caseInfo.attachedImages.map((item) => (
+                    <ImageListItem key={item}>
+                      {item && (
+                        <img
+                          src={`https://healthcare-finalproject.s3.ap-southeast-1.amazonaws.com/${item}`}
+                          // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                          // alt={item.title}
+                          loading="lazy"
+                        />
+                      )}
+                    </ImageListItem>
+                  ))}
+                </ImageList>
+                  {/* <Map locations={[]} hospitalLocation={{lat: parseFloat(location.emergencyCaseLatitude), lng: parseFloat(location.emergencyCaseLongitude)}}/> */}
                 </div>
                 <div
                   className="ml-auto mt-1 flex justify-center hover:underline"
